@@ -18,7 +18,7 @@
 - Armazenamento de dados em um banco de dados (MySQL)
 - Relatório mensal de lucro e despesas
 - Lançamento de movimentações financeiras
-- Cadastro de usuários
+
 <hr>
 
 
