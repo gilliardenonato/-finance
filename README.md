@@ -49,7 +49,10 @@
 <hr>
 
 
+## Fluxo de Relatório
 
+>Além das funcionalidades descritas anteriormente, o sistema também possui um diferencial: um fluxo de relatório. Ao acessar o menu correspondente, o usuário pode visualizar todos os meses que tiveram movimentações financeiras registradas no sistema, de forma ordenada e intuitiva. Isso permite um melhor acompanhamento das finanças ao longo do tempo, facilitando a identificação de padrões e tendências. Com essa funcionalidade, o sistema de gestão financeira se torna ainda mais completo e eficiente para o controle das finanças pessoais ou empresariais.
+![Gif](assets/img/github_screenshots/Untitled_%20Apr%2016%2C%202023%2012_57%20AM.gif)
 
 ## Instruções para criar o banco de dados 🏦
 
