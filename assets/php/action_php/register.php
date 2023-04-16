@@ -68,9 +68,4 @@
    
     echo json_encode($response);
 
-    // if (count($response) == 0) {
-    //     header('Location: /login.php');
-    //     exit;
-    //  }
-     
     

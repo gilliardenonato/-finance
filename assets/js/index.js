@@ -251,6 +251,7 @@ function addViewIconClick() {
         const data = await response.text();
         modalContent.innerHTML = data || 'Você não adicionou nenhuma descrição extra a esse lançamento :(';
         modal.style.display = 'block';
+        console.log(response)
       } catch (error) {
         console.error('Erro ao recuperar a long_description: ', error);
       }

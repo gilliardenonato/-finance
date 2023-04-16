@@ -5,7 +5,7 @@ require __DIR__ . '/../includes_php/connect_db.php';
 $user_id = $_SESSION['id_usuario'];
 
 // Consultar o banco de dados para obter os meses com lançamentos
-// $sql = "SELECT DISTINCT DATE_FORMAT(datetime, '%m-%Y') as monthYear FROM releases WHERE user_id = ? ORDER BY datetime DESC";
+
 $sql = "SELECT DISTINCT DATE_FORMAT(datetime, '%m-%Y') as monthYear, datetime FROM releases WHERE user_id = ? ORDER BY datetime DESC";
 
 $stmt = mysqli_prepare($connect, $sql);

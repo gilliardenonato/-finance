@@ -21,16 +21,6 @@ if (isset($_GET['release_id'])) {
 }
 
 
-
-if (!isset($releaseId) || !isset($date) || !isset($type) || !isset($desc) || !isset($long_desc) || !isset($valor)) {
-  $response['status']  = 'error';
-  $response['message'] = 'Invalid input data';
-  http_response_code(400); // Bad Request
-  echo json_encode($response);
-  exit();
-}
-
-
 $whereClause = '';
 
 if (isset($_GET['month'])) {
@@ -54,16 +44,13 @@ if (isset($_GET['month'])) {
       $type        = $row['type'];
       $subtype     = $row['subtype'];
       $description = $row['description'];
-      // $loung_description = $row['long_description'];
       $launch_value = number_format($row['launch_value'], 2, ',', ',');
 
       echo "<tr>"; 
       echo "<td>" . $datetime . "</td>";
       echo "<td>" . $type . "</td>";
       echo "<td>" . $subtype . "</td>";
-      // echo "<td>" . $description . "</td>";
       echo "<td>" . $description . "</td>";
-      // echo "<td>" . $loung_description . "</td>";
       echo "<td>" . $launch_value . " " . "R$" . "</td>";
       echo "<td class='icon-container'>";
       echo "<i class='bi bi-eye            view-icon  ' data-id= '"  . $row['id'] . "'></i>";
@@ -71,8 +58,6 @@ if (isset($_GET['month'])) {
       echo "<i class='bi bi-trash          delete-icon' data-id='"   . $row['id'] . "' ></i>";
       echo "</td>";
       echo "</tr>";
-   
-
     }
 
   } else {

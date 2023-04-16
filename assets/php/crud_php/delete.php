@@ -4,8 +4,7 @@ require __DIR__ . '/../includes_php/connect_db.php';
 $user_id = $_SESSION['id_usuario'];
 $data = json_decode(file_get_contents('php://input'), true);
 $id = $_GET["release_id"];
-// 3. Executar a exclusão usando mysqli
-// $sql = "DELETE FROM releases WHERE id = ?";
+//Executar a exclusão usando mysqli
 $sql = "DELETE FROM releases WHERE id = ? AND user_id = ?";
 $stmt = mysqli_prepare($connect, $sql);
 mysqli_stmt_bind_param($stmt, 'ii', $id, $user_id);

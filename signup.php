@@ -17,7 +17,7 @@
             <h2>Criar conta</h2>
         </div>
         <form action="assets/php/register.php" class="form" id="form" method="POST">
-            <div class="form-control sucess">
+            <div class="form-control">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" placeholder="Username">
                 <i class="img-success"><img src="assets/img/success-icon.svg" alt=""></i>
