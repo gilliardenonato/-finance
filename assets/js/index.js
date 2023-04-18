@@ -115,7 +115,7 @@ function searchTable(searchInput, tabelaInfo, resumo) {
 
     /* vai buscar dentro do TBODY os tr que é onde estão as informações da tabela*/
     let tableValues = tabelaInfo.getElementsByTagName('tr')
-    
+
     /* agora percorrer linha por linha as do tr */
     for (let posicao in tableValues) {
       if (true === isNaN(posicao)) {
@@ -127,7 +127,7 @@ function searchTable(searchInput, tabelaInfo, resumo) {
 
       } else {
         tableValues[posicao].style.display = 'none';
-        
+
       }
     }
   })
@@ -139,8 +139,8 @@ function searchTable(searchInput, tabelaInfo, resumo) {
 
 // Exemplo de como usar a função
 const searchInput = document.querySelector('.search-input')
-const tabelaInfo  = document.querySelector('.table-informations')
-const resumo      = document.querySelector('.resumo')
+const tabelaInfo = document.querySelector('.table-informations')
+const resumo = document.querySelector('.resumo')
 searchTable(searchInput, tabelaInfo, resumo)
 
 
@@ -172,23 +172,25 @@ const dateInput = document.querySelector("#dateInput");
 
 dateInput.addEventListener('input', function () {
   const selectedDate = new Date(dateInput.value);
-  const currentDate  = new Date();
-  const small        = document.querySelector('.errorMsg');
+  const currentDate = new Date();
+  const small = document.querySelector('.errorMsg');
 
   if (isNaN(selectedDate)) {
     small.innerText = 'Digite uma data válida*';
-    small.style.visibility = 'visible';
+    small.style.display = 'block';
     small.style.color = '#DB5A5A';
     return;
+  } else {
+    small.style.display = 'none';
   }
 
   if (selectedDate > currentDate) {
     small.innerText = 'Digite uma data anterior ou igual à data atual';
-    small.style.visibility = 'visible';
+    small.style.display = 'block';
     small.style.color = '#DB5A5A';
     dateInput.value = "";
   } else {
-    small.style.visibility = 'hidden';
+    small.style.display = 'none';
   }
 });
 
@@ -203,37 +205,40 @@ $(document).ready(function () {
 function createTransaction(event) {
 
   event.preventDefault();
-
   const form = event.target;
-
   const formData = new FormData(form);
+  $.LoadingOverlay("show")
 
   fetch("assets/php/crud_php/create.php", {
     method: "POST",
-    body: formData 
+    body: formData
   })
-    .then(response => response.json()) 
+    .then(response => response.json())
     .then(data => {
-  
+
       if (data.status === 'success') {
- 
         const successModal = document.querySelector('.popup-success-create');
 
         successModal.style.visibility = 'visible';
         successModal.classList.add('animate');
 
-        setTimeout(() => {
-          successModal.style.visibility = 'hidden';
-          form.reset();
-          modalContainer.classList.remove('active');
-          location.reload();
-        }, 1500);
+        successModal.style.visibility = 'hidden';
+        form.reset();
+        modalContainer.classList.remove('active');
+        location.reload();
+
+
+      } else if (data.status === 'error') {
+        alert(data.message)
       }
     })
     .catch(error => {
       console.error(error);
-    });
+    }).finally(() => {
+      $.LoadingOverlay("hide")
+    })
 }
+
 
 document.getElementById("form-create").addEventListener("submit", createTransaction);
 
@@ -254,9 +259,11 @@ function addViewIconClick() {
         console.log(response)
       } catch (error) {
         console.error('Erro ao recuperar a long_description: ', error);
+      }finally {
+        $.LoadingOverlay("hide");
       }
-    });
-  });
+    })
+  })
 }
 
 function addUpdateClick() {
@@ -283,17 +290,15 @@ function addUpdateClick() {
             const successModal = document.querySelector('.popup-success-update');
             successModal.style.visibility = 'visible';
             successModal.classList.add('animate');
-            setTimeout(() => {
-              successModal.style.visibility = 'hidden';
-              location.reload();
-            }, 1500);
-          } else {
-            console.log(data);
+            successModal.style.visibility = 'hidden';
+            location.reload();
+          } else if (data.status === 'error') {
+            alert(data.message)
           }
         } catch (error) {
           console.error(error);
         }
-      });
+      })
     });
   });
 }
@@ -351,7 +356,7 @@ logoutBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     if (localStorage.getItem('selectedMonth')) {
       localStorage.removeItem('selectedMonth');
-    } 
+    }
   });
 });
 
@@ -375,7 +380,7 @@ document.querySelector('#gerar-PDF').addEventListener('click', () => {
           {
             table: {
               headerRows: 1,
-              widths: [ '*', '*', '*', '*' ],
+              widths: ['*', '*', '*', '*'],
               body: [
                 [
                   'Mês/Ano',
@@ -412,7 +417,7 @@ document.querySelector('#gerar-PDF').addEventListener('click', () => {
 
       // Gere o PDF e faça o download
       pdfMake.createPdf(docDefinition).download('Relatório de Lançamentos.pdf');
-      
+
       // Abra o PDF em uma nova aba
       pdfMake.createPdf(docDefinition).getBlob(blob => {
         const pdfUrl = URL.createObjectURL(blob);
@@ -426,7 +431,7 @@ function relatorio() {
   const relatorioButton = document.querySelector('.relatorio');
   const modalrelatorio = document.querySelector('#modal-relatorio');
   const modalContentRelatory = document.querySelector("#content-modal-relatory");
-  
+
   // Array com os nomes dos meses
   const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
@@ -435,13 +440,13 @@ function relatorio() {
     let html = '<table><thead><tr><th>Data lançam.</th><th>Lucro</th><th>Despesas</th><th>Balanço</th></tr></thead><tbody>';
 
     data.forEach(rowData => {
-      const month = meses[parseInt(rowData.month)-1]; // Obtem o nome do mês correspondente
+      const month = meses[parseInt(rowData.month) - 1]; // Obtem o nome do mês correspondente
       const row = `
         <tr>
           <td>${month}/${rowData.year}</td>
-          <td>${rowData.income ? `R$ ${parseFloat(rowData.income).toLocaleString('pt-BR')}` : '-'}</td>
-          <td>${rowData.expenses ? `R$ ${parseFloat(rowData.expenses).toLocaleString('pt-BR')}` : '-'}</td>
-          <td>${`R$ ${parseFloat(rowData.profit).toLocaleString('pt-BR')}`}</td>
+          <td>${rowData.income ? `R$ ${(rowData.income)}` : '-'}</td>
+          <td>${rowData.expenses ? `R$ ${(rowData.expenses)}` : '-'}</td>
+          <td>${`R$ ${(rowData.profit)}`}</td>
         </tr>
       `;
       html += row;

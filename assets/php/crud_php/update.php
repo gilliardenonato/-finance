@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (!isset($_SESSION)) {//Verificar se a sessão não já está aberta.
+  session_start();
+}
 require __DIR__ . '/../includes_php/connect_db.php';
 
 $user_id = $_SESSION['id_usuario'];
@@ -26,6 +28,16 @@ if (!isset($releaseId) || !isset($date) || !isset($type) || !isset($desc) || !is
   echo json_encode($response);
   exit();
 }
+
+
+if ($valor > 1000000) {
+  http_response_code(400);
+  echo json_encode(array('status' => 'error', 'message' => 'O valor máximo permitido é de 1.000.000,00'));
+  exit();
+}
+
+
+
 
 
 // Define a query SQL para atualizar o registro
@@ -55,6 +67,3 @@ mysqli_close($connect);
 
 // Retorna a resposta como JSON
 echo json_encode($response);
-?>
-
-

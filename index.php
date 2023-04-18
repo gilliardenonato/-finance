@@ -260,7 +260,7 @@ include_once('assets/php/includes_php/validate_session.php');
 
                 <div class="form-control-selects">
                   <label class="form-label" for="valor-update">Valor</label>
-                  <input type="text" name="valor-update" id="valor-update" placeholder="digite o valor R$" max="9" required>
+                  <input type="text" name="valor-update" id="valor-update" placeholder="digite o valor R$"min="0" max="10000" step="0.01" required>
                 </div>
 
 
@@ -330,6 +330,7 @@ include_once('assets/php/includes_php/validate_session.php');
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/vfs_fonts.js"></script>
   <script src="assets/js/index.js"></script>
   <script src="assets/js/form_update_validation.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
 
 </body>
 

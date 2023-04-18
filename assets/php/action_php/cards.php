@@ -39,9 +39,9 @@ if (mysqli_num_rows($resultado) > 0) {
 $profit = $income - $expenses;
 
 echo json_encode([
-  'expenses' => number_format($expenses, 2, ',', '.'),
-  'income' => number_format($income, 2, ',', '.'),
-  'profit' => number_format($profit, 2, ',', '.')
+  'expenses' => !empty($expenses) ? number_format($expenses, 2, ',', '.')   : 0,
+  'income'   => !empty($income)   ? number_format($income,   2, ',', '.')   : 0,
+  'profit'   => !empty($profit)   ? number_format($profit,   2, ',', '.')   : 0,
 ]);
 
 mysqli_close($connect);

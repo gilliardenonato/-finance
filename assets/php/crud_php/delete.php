@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (!isset($_SESSION)) {//Verificar se a sessão não já está aberta.
+    session_start();
+}
 require __DIR__ . '/../includes_php/connect_db.php';
 $user_id = $_SESSION['id_usuario'];
 $data = json_decode(file_get_contents('php://input'), true);

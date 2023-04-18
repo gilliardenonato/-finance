@@ -7,14 +7,13 @@ dateInputUpdate.onchange = function () {
   const currentDate = new Date();
   if (selectedDate > currentDate) {
     const small = document.querySelector('.errorMsg-update')
-    small.style.visibility = 'visible'
     small.style.display    = 'block'
     small.innerText = 'digite uma data valida*'
     small.style.color = '#DB5A5A'
     dateInputUpdate.value = "";
   } else {
     const small = document.querySelector('.errorMsg-update')
-    small.style.visibility = 'hidden'
+    small.style.display    = 'none'
   }
 }
 

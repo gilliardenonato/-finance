@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (!isset($_SESSION)) {//Verificar se a sessão não já está aberta.
+  session_start();
+}
 require __DIR__ . '/../includes_php/connect_db.php';
 $user_id = $_SESSION['id_usuario'];
 
@@ -47,11 +49,13 @@ if (isset($_GET['month'])) {
       $launch_value = number_format($row['launch_value'], 2, ',', ',');
 
       echo "<tr>"; 
-      echo "<td>" . $datetime . "</td>";
-      echo "<td>" . $type . "</td>";
-      echo "<td>" . $subtype . "</td>";
-      echo "<td>" . $description . "</td>";
-      echo "<td>" . $launch_value . " " . "R$" . "</td>";
+      echo "<td>$datetime </td>";
+      echo "<td>$type</td>";
+      echo "<td>$subtype</td>";
+      echo "<td>$description</td>";
+      echo "<td><span class='badge " . ($type == 'despesa' ? 'badge-negative' : 'badge-positive') . "'> R\$  $launch_value </span></td>";
+
+      // echo "<td> R\$   $launch_value</td>";
       echo "<td class='icon-container'>";
       echo "<i class='bi bi-eye            view-icon  ' data-id= '"  . $row['id'] . "'></i>";
       echo "<i class='bi bi-pencil-square  update-icon' data-id='"   . $row['id'] . "'></i>";
